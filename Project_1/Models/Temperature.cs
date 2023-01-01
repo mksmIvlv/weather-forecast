@@ -138,6 +138,10 @@ public class Temperature
         });
     }
     
+    /// <summary>
+    /// Метод ошибки
+    /// </summary>
+    /// <param name="textError">Текст ошибки</param>
     private async void ErrorAsync(string textError)
     {
         await Task.Run(() => notificationManager.ShowAsync(new NotificationContent
