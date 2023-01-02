@@ -84,7 +84,7 @@ public class ViewModelMainWindow : INotifyPropertyChanged
     {
         AddTemperatureInCollectionAsync();
     }
-    private bool commandCommandGetTempCityExecute(object p)
+    private bool commandGetTempCityExecute(object p)
     {
         return true;
     }
@@ -101,7 +101,7 @@ public class ViewModelMainWindow : INotifyPropertyChanged
 
         SelectedCityComboBox = contentComboBox[0];
         
-        CommandGetTempCity = new Command(onCommandGetTempCityExecuted, commandCommandGetTempCityExecute);
+        CommandGetTempCity = new Command(onCommandGetTempCityExecuted, commandGetTempCityExecute);
     }
 
     #endregion
