@@ -121,18 +121,21 @@ public class Temperature
 
             var currentTemp = JObject.Parse(weather)["main"]["temp"]
                 .ToString()
-                .TrimEnd(new []{'0','1','2','3','4','5','6','7','8','9'})
-                .TrimEnd(',');
+                .TrimEnd(new[] { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9' })
+                .TrimEnd(',')
+                .CheckingString();
 
             var maxTemp = JObject.Parse(weather)["main"]["temp_max"]
                 .ToString()
                 .TrimEnd(new []{'0','1','2','3','4','5','6','7','8','9'})
-                .TrimEnd(',');
+                .TrimEnd(',')
+                .CheckingString();
 
             var minTemp = JObject.Parse(weather)["main"]["temp_min"]
                 .ToString()
                 .TrimEnd(new []{'0','1','2','3','4','5','6','7','8','9'})
-                .TrimEnd(',');
+                .TrimEnd(',')
+                .CheckingString();
 
             returnCity = new City { Name = nameCity, CurrentTemp = currentTemp, MaxTemp = maxTemp, MinTemp = minTemp };
         });

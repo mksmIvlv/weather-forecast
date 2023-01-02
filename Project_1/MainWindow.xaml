@@ -6,6 +6,7 @@
         xmlns:vm ="clr-namespace:Project_1.ViewModels"
         mc:Ignorable="d"
         Title="{Binding Title}" 
+        WindowStartupLocation="CenterScreen"
         Height="500" 
         Width="615"
         MinHeight="400"

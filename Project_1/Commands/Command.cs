@@ -1,23 +1,36 @@
 ﻿using System;
 using System.Windows.Input;
 
-namespace Module_19.Commands
+namespace Project_1.Commands;
+
+public class Command : ICommand
 {
-    internal class Command : ICommand
+    #region Поля
+
+    public event EventHandler? CanExecuteChanged;
+
+    private readonly Action<object> excute;
+
+    private readonly Func<object, bool> canExecute;
+
+    #endregion
+
+    #region Конструктор
+
+    public Command(Action<object> Excute, Func<object, bool> CanExecute = null)
     {
-        public event EventHandler? CanExecuteChanged;
+        excute = Excute;
 
-        private readonly Action<object> excute;
-
-        private readonly Func<object, bool> canExecute;
-        public Command(Action<object> Excute, Func<object, bool> CanExecute = null)
-        {
-            excute = Excute;
-
-            canExecute = CanExecute;
-        }
-        public bool CanExecute(object? parameter) => canExecute?.Invoke(parameter) ?? true;
-
-        public void Execute(object? parameter) => excute(parameter);
+        canExecute = CanExecute;
     }
+
+    #endregion
+
+    #region Методы
+
+    public bool CanExecute(object? parameter) => canExecute?.Invoke(parameter) ?? true;
+
+    public void Execute(object? parameter) => excute(parameter);
+
+    #endregion
 }

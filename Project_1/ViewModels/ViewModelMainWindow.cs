@@ -3,7 +3,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using Module_19.Commands;
+using Project_1.Commands;
 
 namespace Project_1.ViewModels;
 
