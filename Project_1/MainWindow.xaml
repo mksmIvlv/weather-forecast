@@ -17,6 +17,7 @@
     <Window.DataContext>
         <vm:ViewModelMainWindow/>
     </Window.DataContext>
+    
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="65*"/>
@@ -71,7 +72,8 @@
             Content="{Binding ContentButton}"
             Command="{Binding CommandGetTempCity}"
             Margin="50,10,50,10" 
-            Grid.Row="1" Grid.Column="1"/>
+            Grid.Row="1" 
+            Grid.Column="1"/>
 
         <ComboBox
             VerticalContentAlignment="Center"
@@ -80,6 +82,7 @@
             ItemsSource="{Binding ContentComboBox}"
             SelectedItem="{Binding SelectedCityComboBox}" 
             Margin="50,10,50,10" 
-            Grid.Row="1"/>
+            Grid.Row="1">
+        </ComboBox>
     </Grid>
 </Window>
