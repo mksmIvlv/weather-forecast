@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Project_1.Commands;
+using Project_1.Logic;
 
 namespace Project_1.ViewModels;
 

@@ -1,4 +1,4 @@
-﻿namespace Project_1.Models;
+﻿namespace Project_1.Logic;
 
 public static class Extensions
 {

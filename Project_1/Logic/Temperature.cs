@@ -4,8 +4,9 @@ using System.Net;
 using System.Threading.Tasks;
 using Newtonsoft.Json.Linq;
 using Notifications.Wpf.Core;
+using Project_1.Models;
 
-namespace Project_1.Models;
+namespace Project_1.Logic;
 
 public class Temperature
 {
