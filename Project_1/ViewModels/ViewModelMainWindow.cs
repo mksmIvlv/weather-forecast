@@ -4,7 +4,6 @@ using System.ComponentModel;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Project_1.Commands;
-using Project_1.Logic;
 
 namespace Project_1.ViewModels;
 
@@ -13,14 +12,14 @@ public class ViewModelMainWindow : INotifyPropertyChanged
     #region Поля
 
     public event PropertyChangedEventHandler? PropertyChanged;
-    
-    private Temperature temperature;
 
-    private string title = "Прогноз погоды";
+    private City _city;
 
-    private string contentButton = "Загрузить данные";
+    private string _title = "Прогноз погоды";
 
-    private string[] contentComboBox = new[]
+    private string _contentButton = "Загрузить данные";
+
+    private string[] _contentComboBox = new[]
     {
         "Moscow",
         "Saint-Petersburg", 
@@ -31,30 +30,30 @@ public class ViewModelMainWindow : INotifyPropertyChanged
         "Irkutsk"
     };
 
-    private ObservableCollection<City> collectionCity;
+    private ObservableCollection<City> _collectionCity;
 
-    private string selectedCityComboBox;
+    private string _selectedCityComboBox;
 
     #endregion
     
     #region Свойства
     
-    public string Title { get { return title; } }
+    public string Title { get { return _title; } }
     
-    public string ContentButton { get { return contentButton; } }
+    public string ContentButton { get { return _contentButton; } }
     
-    public string[] ContentComboBox { get { return contentComboBox; } }
+    public string[] ContentComboBox { get { return _contentComboBox; } }
     
     public ObservableCollection<City> CollectionCity
     {
-        get { return collectionCity; }
+        get { return _collectionCity; }
 
         set
         {
-            if (collectionCity == value)
+            if (_collectionCity == value)
                 return;
 
-            collectionCity = value;
+            _collectionCity = value;
 
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(this.CollectionCity)));
         }
@@ -62,14 +61,14 @@ public class ViewModelMainWindow : INotifyPropertyChanged
     
     public string SelectedCityComboBox
     {
-        get { return selectedCityComboBox; }
+        get { return _selectedCityComboBox; }
         
         set
         {
-            if (selectedCityComboBox == value)
+            if (_selectedCityComboBox == value)
                 return;
             
-            selectedCityComboBox = value;
+            _selectedCityComboBox = value;
             
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(this.SelectedCityComboBox)));
         }
@@ -82,7 +81,7 @@ public class ViewModelMainWindow : INotifyPropertyChanged
     public ICommand CommandGetTempCity { get; }
     private void onCommandGetTempCityExecuted(object p)
     {
-        AddTemperatureInCollectionAsync();
+        AddTemperatureInCollectionAsync(SelectedCityComboBox);
     }
     private bool commandGetTempCityExecute(object p)
     {
@@ -95,11 +94,11 @@ public class ViewModelMainWindow : INotifyPropertyChanged
 
     public ViewModelMainWindow()
     {
-        temperature = new Temperature();
+        _city = new City();
 
         CollectionCity = new ObservableCollection<City>();
 
-        SelectedCityComboBox = contentComboBox[0];
+        SelectedCityComboBox = _contentComboBox[0];
         
         CommandGetTempCity = new Command(onCommandGetTempCityExecuted, commandGetTempCityExecute);
     }
@@ -111,9 +110,9 @@ public class ViewModelMainWindow : INotifyPropertyChanged
     /// <summary>
     /// Метод добавление температуры в коллекцию
     /// </summary>
-    private async Task AddTemperatureInCollectionAsync()
+    private async Task AddTemperatureInCollectionAsync(string nameCity)
     {
-        var city = await temperature.GetTemperatureCityAsync(SelectedCityComboBox);
+        var city = await _city.GetTemperatureCityAsync(nameCity);
 
         if (city != null)
         {

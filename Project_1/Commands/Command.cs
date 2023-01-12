@@ -9,28 +9,28 @@ public class Command : ICommand
 
     public event EventHandler? CanExecuteChanged;
 
-    private readonly Action<object> excute;
+    private readonly Action<object> _excute;
 
-    private readonly Func<object, bool> canExecute;
+    private readonly Func<object, bool> _canExecute;
 
     #endregion
 
     #region Конструктор
 
-    public Command(Action<object> Excute, Func<object, bool> CanExecute = null)
+    public Command(Action<object> excute, Func<object, bool> canExecute = null)
     {
-        excute = Excute;
+        _excute = excute;
 
-        canExecute = CanExecute;
+        _canExecute = canExecute;
     }
 
     #endregion
 
     #region Методы
 
-    public bool CanExecute(object? parameter) => canExecute?.Invoke(parameter) ?? true;
+    public bool CanExecute(object? parameter) => _canExecute?.Invoke(parameter) ?? true;
 
-    public void Execute(object? parameter) => excute(parameter);
+    public void Execute(object? parameter) => _excute(parameter);
 
     #endregion
 }
