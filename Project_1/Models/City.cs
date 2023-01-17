@@ -88,25 +88,21 @@ public class City
                 case "Saint-Petersburg":
                     {
                         _urlCity = "http://api.openweathermap.org/data/2.5/weather?lat=59.8944&lon=30.2642&units=metric&appid=fce39138fbef5f8c5d15cb37f6bd1c17";
-
                         break;
                     }
                 case "Samara":
                     {
                         _urlCity = "http://api.openweathermap.org/data/2.5/weather?lat=53.2&lon=50.15&units=metric&appid=fce39138fbef5f8c5d15cb37f6bd1c17";
-
                         break;
                     }
                 default:
                     {
                         _urlCity = $"http://api.openweathermap.org/data/2.5/weather?q={nameCity}&units=metric&appid=fce39138fbef5f8c5d15cb37f6bd1c17";
-
                         break;
                     }
             }
 
             await ResponseSiteAsync();
-
             await GetCurrentValueAsync();
 
             return new City(_name, _currentTemp, _maxTemp, _minTemp);
@@ -135,9 +131,7 @@ public class City
                 try
                 {
                     HttpWebRequest httpWebRequest = (HttpWebRequest)WebRequest.Create(_urlCity);
-
                     HttpWebResponse httpWebResponse = (HttpWebResponse)httpWebRequest.GetResponse();
-
                     using (StreamReader tempfile = new StreamReader(httpWebResponse.GetResponseStream()))
                     {
                         try
@@ -147,7 +141,6 @@ public class City
                         catch
                         {
                             _eventError?.Invoke("Не удалось прочитать данные с сервера");
-
                             throw new NullReferenceException();
                         }
                         finally
@@ -160,7 +153,6 @@ public class City
                 catch
                 {
                     _eventError?.Invoke("Нет ответа от сервера");
-
                     throw new NullReferenceException();
                 }
                 finally
@@ -181,19 +173,16 @@ public class City
             try 
             {
                 _name = JObject.Parse(_weather)["name"].ToString();
-
                 _currentTemp = JObject.Parse(_weather)["main"]["temp"]
                     .ToString()
                     .TrimEnd(new[] { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9' })
                     .TrimEnd(',')
                     .CheckingString();
-
                 _maxTemp = JObject.Parse(_weather)["main"]["temp_max"]
                     .ToString()
                     .TrimEnd(new[] { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9' })
                     .TrimEnd(',')
                     .CheckingString();
-
                 _minTemp = JObject.Parse(_weather)["main"]["temp_min"]
                     .ToString()
                     .TrimEnd(new[] { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9' })

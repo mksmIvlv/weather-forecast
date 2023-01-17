@@ -95,11 +95,8 @@ public class ViewModelMainWindow : INotifyPropertyChanged
     public ViewModelMainWindow()
     {
         _city = new City();
-
         CollectionCity = new ObservableCollection<City>();
-
         SelectedCityComboBox = _contentComboBox[0];
-        
         CommandGetTempCity = new Command(onCommandGetTempCityExecuted, commandGetTempCityExecute);
     }
 
@@ -113,7 +110,6 @@ public class ViewModelMainWindow : INotifyPropertyChanged
     private async Task AddTemperatureInCollectionAsync(string nameCity)
     {
         var city = await _city.GetTemperatureCityAsync(nameCity);
-
         if (city != null)
         {
             CollectionCity.Add(city);
