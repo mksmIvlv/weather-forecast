@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using System.IO;
 using System.Net;
 using Newtonsoft.Json.Linq;
-using Project_1.Logic;
+using Project_1.Extensions;
 
 namespace Project_1.Models;
 
@@ -101,7 +101,6 @@ public class City
                         break;
                     }
             }
-
             await ResponseSiteAsync();
             await GetCurrentValueAsync();
 
@@ -124,43 +123,27 @@ public class City
     /// </summary>
     private async Task ResponseSiteAsync()
     {
-        await Task.Run(() =>
+        try
         {
-            using (var client = new WebClient())
+            await Task.Run(() =>
             {
-                try
+                using (var client = new WebClient())
                 {
                     HttpWebRequest httpWebRequest = (HttpWebRequest)WebRequest.Create(_urlCity);
                     HttpWebResponse httpWebResponse = (HttpWebResponse)httpWebRequest.GetResponse();
                     using (StreamReader tempfile = new StreamReader(httpWebResponse.GetResponseStream()))
                     {
-                        try
-                        {
-                            _weather = tempfile.ReadToEnd();
-                        }
-                        catch
-                        {
-                            _eventError?.Invoke("Не удалось прочитать данные с сервера");
-                            throw new NullReferenceException();
-                        }
-                        finally
-                        {
-                            tempfile.Dispose();
-                        }
-
+                        _weather = tempfile.ReadToEnd();
                     }
                 }
-                catch
-                {
-                    _eventError?.Invoke("Нет ответа от сервера");
-                    throw new NullReferenceException();
-                }
-                finally
-                {
-                    client.Dispose();
-                }
-            }
-        });
+            });
+        }
+        catch(Exception ex)
+        {
+            _eventError?.Invoke($"{ex.Message}");
+            
+            throw new NullReferenceException();
+        }
     }
 
     /// <summary>

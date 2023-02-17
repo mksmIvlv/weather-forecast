@@ -1,6 +1,6 @@
-﻿namespace Project_1.Logic;
+﻿namespace Project_1.Extensions;
 
-public static class Extensions
+public static class StringExtension
 {
     /// <summary>
     /// Расширение нужно для проверки знака перед 0.
